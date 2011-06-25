@@ -55,7 +55,7 @@ if (strpos($hooks,'recaptcha') !== false) {
 }
 
 /* if using math hook, load default placeholders */
-if (strpos($hooks,'math') !== false && empty($_POST)) {
+if (strpos($hooks,'math') !== false && empty($_POST[$submitVar])) {
     $mathMaxRange = $modx->getOption('mathMaxRange',$scriptProperties,100);
     $mathMinRange = $modx->getOption('mathMinRange',$scriptProperties,10);
     $op1 = rand($mathMinRange,$mathMaxRange);
@@ -78,7 +78,7 @@ $fi->preHooks->loadMultiple($preHooks,array(),array(
 ));
 
 /* if a prehook sets a field, do so here, but only if POST isnt submitted */
-if (!empty($fi->preHooks->fields) && empty($_POST)) {
+if (!empty($fi->preHooks->fields) && empty($_POST[$submitVar])) {
     $fs = $fi->preHooks->fields;
     /* better handling of checkbox values when input name is an array[] */
     foreach ($fs as $f => $v) {
